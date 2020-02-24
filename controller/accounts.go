@@ -20,9 +20,9 @@ func (pc *AccountsController) Index(w http.ResponseWriter, r *http.Request) {
 	tx := models.DB
 	query := pop.Q(tx)
 
-	account := models.Account{}
+	account := models.Accounts{}
 	err := query.Paginate(p.Page, p.PerPage).
-		All(&accounts)
+		All(&account)
 	if err != nil {
 		pc.SendJSONError(w, err)
 		return
