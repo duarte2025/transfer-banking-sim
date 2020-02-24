@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"github.com/gobuffalo/pop"
 	"github.com/gobuffalo/validate"
-	"github.com/gofrs/uuid"
 	"time"
 )
 // Transfer is used by pop to map your .model.Name.Proper.Pluralize.Underscore database table to your go code.
