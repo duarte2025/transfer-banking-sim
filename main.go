@@ -25,7 +25,7 @@ func main() {
 	api.HandleFunc("/accounts", accountsController.Create).Methods("POST")
 
 	api.HandleFunc("/transfers", transfersController.Index).Methods("GET")
-	//api.HandleFunc("/transfers", accountsController.Create).Methods("POST")
+	api.HandleFunc("/transfers", transfersController.Create).Methods("POST")
 
 	http.ListenAndServe(":"+port, router)
 }
