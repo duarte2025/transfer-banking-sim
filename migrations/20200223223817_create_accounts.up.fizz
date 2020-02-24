@@ -1,4 +1,8 @@
 create_table("accounts") {
-	t.Column("id", "uuid", {primary: true})
-	t.Timestamps()
+	t.Column("id", "integer", {primary: true})
+	t.Column("name", "string", {"size": 50})
+	t.Column("cpf", "string", {"size": 12})
+	t.Column("ballance", "float")
+	t.Column("created_at", "datetime")
+	t.DisableTimestamps()
 }
