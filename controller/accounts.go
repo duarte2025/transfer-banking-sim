@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"encoding/json"
 
+	"github.com/gorilla/mux"
 	"github.com/gobuffalo/pop"
 	"transfer-banking/common"
 	"transfer-banking/models"
@@ -74,3 +75,27 @@ func (pc *AccountsController) Create(w http.ResponseWriter, r *http.Request) {
 	pc.SendJSON(w, account, 200)
 }
 
+func (pc *AccountsController) Get(w http.ResponseWriter, r *http.Request) {
+	p, err := pc.findByID(r)
+	if err != nil {
+		pc.SendJSONError(w, err)
+		return
+	}
+	pc.SendJSON(w, p, 200)
+}
+
+func (pc *AccountsController) findByID(r *http.Request) (*models.Account, error) {
+	params := mux.Vars(r)
+	id := params["account_id"]
+
+	tx := models.DB
+	query := pop.Q(tx)
+
+	account :=  models.Account{}
+	err := query.Find(&account, id)
+	if err != nil {
+		return nil, err
+	}
+
+	return &account, nil
+}

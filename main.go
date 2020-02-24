@@ -19,6 +19,7 @@ func main() {
 	api := router.PathPrefix("/api").Subrouter()
 
 	api.HandleFunc("/accounts", accountsController.Index).Methods("GET")
+	api.HandleFunc("/accounts/{account_id}/ballance", accountsController.Get).Methods("GET")
 	api.HandleFunc("/accounts", accountsController.Create).Methods("POST")
 	http.ListenAndServe(":"+port, router)
 }
