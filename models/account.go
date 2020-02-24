@@ -4,14 +4,15 @@ import (
 	"encoding/json"
 	"github.com/gobuffalo/pop"
 	"github.com/gobuffalo/validate"
-	"github.com/gofrs/uuid"
 	"time"
 )
 // Account is used by pop to map your .model.Name.Proper.Pluralize.Underscore database table to your go code.
 type Account struct {
-    ID uuid.UUID `json:"id" db:"id"`
+	ID int64 `json:"id" db:"id"`
+	Name string `json:"name" db:"name"`
+	CPF string `json:"cpf" db:"cpf"`
+	Ballance float64 `json:"ballance" db:"ballance"`
     CreatedAt time.Time `json:"created_at" db:"created_at"`
-    UpdatedAt time.Time `json:"updated_at" db:"updated_at"`
 }
 
 // String is not required by pop and may be deleted

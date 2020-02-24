@@ -2,9 +2,6 @@ package models
 
 import (
 	"log"
-	"os"
-
-	"github.com/gobuffalo/going/defaults"
 	"github.com/gobuffalo/pop"
 )
 
@@ -14,10 +11,8 @@ var DB *pop.Connection
 
 func init() {
 	var err error
-	env := defaults.String(os.Getenv("GO_ENV"), "development")
-	DB, err = pop.Connect(env)
+	DB, err = pop.Connect("development")
 	if err != nil {
 		log.Fatal(err)
 	}
-	pop.Debug = env == "development"
 }
