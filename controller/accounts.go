@@ -20,7 +20,7 @@ func (pc *AccountsController) Index(w http.ResponseWriter, r *http.Request) {
 	tx := models.DB
 	query := pop.Q(tx)
 
-	accounts := models.Accounts{}
+	account := models.Account{}
 	err := query.Paginate(p.Page, p.PerPage).
 		All(&accounts)
 	if err != nil {
@@ -28,15 +28,15 @@ func (pc *AccountsController) Index(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	count, err := query.Count(models.Accounts{})
+	count, err := query.Count(models.Account{})
 	if err != nil {
 		pc.SendJSONError(w, err)
 		return
 	}
 
-	p.CurrentCount = len(accounts)
+	p.CurrentCount = len(account)
 	p.TotalCount = count
-	pc.SendJSONWithPagination(w, accounts, "accounts", p, 200)
+	pc.SendJSONWithPagination(w, account, "accounts", p, 200)
 }
 
 type FormAccount struct {
