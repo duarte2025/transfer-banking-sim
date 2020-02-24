@@ -15,9 +15,10 @@ func main() {
 	}
 	router := mux.NewRouter()
 
-	p := controller.AccountsController{}
+	accountsController := controller.AccountsController{}
 	api := router.PathPrefix("/api").Subrouter()
 
-	api.HandleFunc("/accounts", p.Index).Methods("GET")
+	api.HandleFunc("/accounts", accountsController.Index).Methods("GET")
+	api.HandleFunc("/accounts", accountsController.Create).Methods("POST")
 	http.ListenAndServe(":"+port, router)
 }

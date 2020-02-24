@@ -2,6 +2,8 @@ package controller
 
 import (
 	"net/http"
+	"encoding/json"
+
 	"github.com/gobuffalo/pop"
 	"transfer-banking/common"
 	"transfer-banking/models"
@@ -35,3 +37,40 @@ func (pc *AccountsController) Index(w http.ResponseWriter, r *http.Request) {
 	p.TotalCount = count
 	pc.SendJSONWithPagination(w, users, "accounts", p, 200)
 }
+
+type FormAccount struct {
+	ID       int64
+	Name     string   `json:"name"`
+	CPF string   `json:"cpf"`
+	Ballance float64   `json:"ballance"`
+}
+
+func (pc *AccountsController) Create(w http.ResponseWriter, r *http.Request) {
+	var formAccount FormAccount
+	err := json.NewDecoder(r.Body).Decode(&formAccount)
+	if err != nil {
+		pc.SendJSONError(w, err)
+		return
+	}
+
+	account := models.Account{
+		Name:     formAccount.Name,
+		CPF: formAccount.CPF,
+		Ballance: formAccount.Ballance,
+	}
+
+	tx := models.DB
+	verrs, err := tx.ValidateAndCreate(&account)
+	if err != nil {
+		pc.SendJSONError(w, err)
+		return
+	}
+
+	if verrs.HasAny() {
+		pc.SendJSONValidationError(w, verrs)
+		return
+	}
+
+	pc.SendJSON(w, account, 200)
+}
+
