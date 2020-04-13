@@ -1,6 +1,6 @@
-# Project Codename Tranfer Bankin Simulate
+# Project Codename Transfer Banking Simulate
 
-Simulação de transferência de banco
+Simluation to transfer banking
 
 ## Usage
 
